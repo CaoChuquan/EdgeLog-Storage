@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o  -o ../bin/EdgeLog-Storage 
+/usr/bin/g++     CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o  -o ../bin/EdgeLog-Storage 

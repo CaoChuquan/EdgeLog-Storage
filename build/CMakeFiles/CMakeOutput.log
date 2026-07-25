@@ -1,6 +1,6 @@
 The system is: Linux - 4.18.0-193.28.1.el8_2.x86_64 - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: /usr/bin/cc 
+Compiler: /usr/bin/gcc 
 Build flags: 
 Id flags:  
 
@@ -13,7 +13,7 @@ Compilation of the C compiler identification source "CMakeCCompilerId.c" produce
 The C compiler identification is GNU, found in "/home/CCQ/Project/edge-log-storage/build/CMakeFiles/3.10.0/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-Compiler: /usr/bin/c++ 
+Compiler: /usr/bin/g++ 
 Build flags: 
 Id flags:  
 
@@ -28,30 +28,30 @@ The CXX compiler identification is GNU, found in "/home/CCQ/Project/edge-log-sto
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_a581e/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_a581e.dir/build.make CMakeFiles/cmTC_a581e.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_88794/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_88794.dir/build.make CMakeFiles/cmTC_88794.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_a581e.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_a581e.dir/testCCompiler.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_a581e
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a581e.dir/link.txt --verbose=1
-/usr/bin/cc      CMakeFiles/cmTC_a581e.dir/testCCompiler.c.o  -o cmTC_a581e 
+Building C object CMakeFiles/cmTC_88794.dir/testCCompiler.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTC_88794.dir/testCCompiler.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_88794
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_88794.dir/link.txt --verbose=1
+/usr/bin/gcc      CMakeFiles/cmTC_88794.dir/testCCompiler.c.o  -o cmTC_88794 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_37730/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_37730.dir/build.make CMakeFiles/cmTC_37730.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_8c74b/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_8c74b.dir/build.make CMakeFiles/cmTC_8c74b.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_37730
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37730.dir/link.txt --verbose=1
-/usr/bin/cc     -v CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o  -o cmTC_37730 
+Building C object CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o
+/usr/bin/gcc    -o CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_8c74b
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8c74b.dir/link.txt --verbose=1
+/usr/bin/gcc     -v CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o  -o cmTC_8c74b 
 Using built-in specs.
-COLLECT_GCC=/usr/bin/cc
+COLLECT_GCC=/usr/bin/gcc
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper
 OFFLOAD_TARGET_NAMES=nvptx-none
 OFFLOAD_TARGET_DEFAULT=1
@@ -61,9 +61,9 @@ Thread model: posix
 gcc version 8.5.0 20210514 (Red Hat 8.5.0-4) (GCC) 
 COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_37730' '-mtune=generic' '-march=x86-64'
- /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccLz5IoY.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_37730 /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_37730' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_8c74b' '-mtune=generic' '-march=x86-64'
+ /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccmCN8iE.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_8c74b /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_8c74b' '-mtune=generic' '-march=x86-64'
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -71,16 +71,16 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/gmake" "cmTC_37730/fast"]
-  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTC_37730.dir/build.make CMakeFiles/cmTC_37730.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/gmake" "cmTC_8c74b/fast"]
+  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTC_8c74b.dir/build.make CMakeFiles/cmTC_8c74b.dir/build]
   ignore line: [gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_37730]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37730.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o  -o cmTC_37730 ]
+  ignore line: [Building C object CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/gcc    -o CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_8c74b]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8c74b.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/gcc     -v CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o  -o cmTC_8c74b ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_GCC=/usr/bin/gcc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper]
   ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
   ignore line: [OFFLOAD_TARGET_DEFAULT=1]
@@ -90,13 +90,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 8.5.0 20210514 (Red Hat 8.5.0-4) (GCC) ]
   ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_37730' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccLz5IoY.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_37730 /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_8c74b' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccmCN8iE.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_8c74b /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
     arg [/usr/libexec/gcc/x86_64-redhat-linux/8/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccLz5IoY.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccmCN8iE.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -111,7 +111,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_37730] ==> ignore
+    arg [cmTC_8c74b] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o] ==> ignore
@@ -120,7 +120,7 @@ Parsed C implicit link information from above output:
     arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
     arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
     arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../..]
-    arg [CMakeFiles/cmTC_37730.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_8c74b.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -147,14 +147,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_179b5/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_179b5.dir/build.make CMakeFiles/cmTC_179b5.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_e1877/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_e1877.dir/build.make CMakeFiles/cmTC_e1877.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_179b5.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_179b5.dir/feature_tests.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_179b5
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_179b5.dir/link.txt --verbose=1
-/usr/bin/cc      CMakeFiles/cmTC_179b5.dir/feature_tests.c.o  -o cmTC_179b5 
+Building C object CMakeFiles/cmTC_e1877.dir/feature_tests.c.o
+/usr/bin/gcc   -std=c11 -o CMakeFiles/cmTC_e1877.dir/feature_tests.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_e1877
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e1877.dir/link.txt --verbose=1
+/usr/bin/gcc      CMakeFiles/cmTC_e1877.dir/feature_tests.c.o  -o cmTC_e1877 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -167,14 +167,14 @@ gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_1c97b/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_1c97b.dir/build.make CMakeFiles/cmTC_1c97b.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_d4172/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_d4172.dir/build.make CMakeFiles/cmTC_d4172.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_1c97b.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_1c97b.dir/feature_tests.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_1c97b
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1c97b.dir/link.txt --verbose=1
-/usr/bin/cc      CMakeFiles/cmTC_1c97b.dir/feature_tests.c.o  -o cmTC_1c97b 
+Building C object CMakeFiles/cmTC_d4172.dir/feature_tests.c.o
+/usr/bin/gcc   -std=c99 -o CMakeFiles/cmTC_d4172.dir/feature_tests.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_d4172
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4172.dir/link.txt --verbose=1
+/usr/bin/gcc      CMakeFiles/cmTC_d4172.dir/feature_tests.c.o  -o cmTC_d4172 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -187,14 +187,14 @@ gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_75915/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_75915.dir/build.make CMakeFiles/cmTC_75915.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_a2d09/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_a2d09.dir/build.make CMakeFiles/cmTC_a2d09.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_75915.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_75915.dir/feature_tests.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_75915
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_75915.dir/link.txt --verbose=1
-/usr/bin/cc      CMakeFiles/cmTC_75915.dir/feature_tests.c.o  -o cmTC_75915 
+Building C object CMakeFiles/cmTC_a2d09.dir/feature_tests.c.o
+/usr/bin/gcc   -std=c90 -o CMakeFiles/cmTC_a2d09.dir/feature_tests.c.o   -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_a2d09
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a2d09.dir/link.txt --verbose=1
+/usr/bin/gcc      CMakeFiles/cmTC_a2d09.dir/feature_tests.c.o  -o cmTC_a2d09 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -205,30 +205,30 @@ gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_1b3f7/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_1b3f7.dir/build.make CMakeFiles/cmTC_1b3f7.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_090fc/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_090fc.dir/build.make CMakeFiles/cmTC_090fc.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_1b3f7.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_1b3f7.dir/testCXXCompiler.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_1b3f7
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1b3f7.dir/link.txt --verbose=1
-/usr/bin/c++       CMakeFiles/cmTC_1b3f7.dir/testCXXCompiler.cxx.o  -o cmTC_1b3f7 
+Building CXX object CMakeFiles/cmTC_090fc.dir/testCXXCompiler.cxx.o
+/usr/bin/g++     -o CMakeFiles/cmTC_090fc.dir/testCXXCompiler.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_090fc
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_090fc.dir/link.txt --verbose=1
+/usr/bin/g++       CMakeFiles/cmTC_090fc.dir/testCXXCompiler.cxx.o  -o cmTC_090fc 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_7a1d5/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_7a1d5.dir/build.make CMakeFiles/cmTC_7a1d5.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_e6980/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_e6980.dir/build.make CMakeFiles/cmTC_e6980.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_7a1d5
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7a1d5.dir/link.txt --verbose=1
-/usr/bin/c++      -v CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_7a1d5 
+Building CXX object CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/g++     -o CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_e6980
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e6980.dir/link.txt --verbose=1
+/usr/bin/g++      -v CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_e6980 
 Using built-in specs.
-COLLECT_GCC=/usr/bin/c++
+COLLECT_GCC=/usr/bin/g++
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper
 OFFLOAD_TARGET_NAMES=nvptx-none
 OFFLOAD_TARGET_DEFAULT=1
@@ -238,9 +238,9 @@ Thread model: posix
 gcc version 8.5.0 20210514 (Red Hat 8.5.0-4) (GCC) 
 COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7a1d5' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYZCroH.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_7a1d5 /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7a1d5' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e6980' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccgNiXhp.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_e6980 /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e6980' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -248,16 +248,16 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/gmake" "cmTC_7a1d5/fast"]
-  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTC_7a1d5.dir/build.make CMakeFiles/cmTC_7a1d5.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/gmake" "cmTC_e6980/fast"]
+  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTC_e6980.dir/build.make CMakeFiles/cmTC_e6980.dir/build]
   ignore line: [gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_7a1d5]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7a1d5.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_7a1d5 ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/g++     -o CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_e6980]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e6980.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/g++      -v CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_e6980 ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_GCC=/usr/bin/g++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper]
   ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
   ignore line: [OFFLOAD_TARGET_DEFAULT=1]
@@ -267,13 +267,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 8.5.0 20210514 (Red Hat 8.5.0-4) (GCC) ]
   ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/8/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/8/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/8/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7a1d5' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYZCroH.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_7a1d5 /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_e6980' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/8/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper -plugin-opt=-fresolution=/tmp/ccgNiXhp.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_e6980 /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/8 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../.. CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
     arg [/usr/libexec/gcc/x86_64-redhat-linux/8/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/libexec/gcc/x86_64-redhat-linux/8/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/8/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccYZCroH.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccgNiXhp.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -288,7 +288,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_7a1d5] ==> ignore
+    arg [cmTC_e6980] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o] ==> ignore
@@ -297,7 +297,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
     arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
     arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../..]
-    arg [CMakeFiles/cmTC_7a1d5.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_e6980.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -322,14 +322,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_7b33a/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_7b33a.dir/build.make CMakeFiles/cmTC_7b33a.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_a5372/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_a5372.dir/build.make CMakeFiles/cmTC_a5372.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_7b33a.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1z -o CMakeFiles/cmTC_7b33a.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_7b33a
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7b33a.dir/link.txt --verbose=1
-/usr/bin/c++       CMakeFiles/cmTC_7b33a.dir/feature_tests.cxx.o  -o cmTC_7b33a 
+Building CXX object CMakeFiles/cmTC_a5372.dir/feature_tests.cxx.o
+/usr/bin/g++    -std=c++1z -o CMakeFiles/cmTC_a5372.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_a5372
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5372.dir/link.txt --verbose=1
+/usr/bin/g++       CMakeFiles/cmTC_a5372.dir/feature_tests.cxx.o  -o cmTC_a5372 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -395,14 +395,14 @@ gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_eb17e/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_eb17e.dir/build.make CMakeFiles/cmTC_eb17e.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_30e11/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_30e11.dir/build.make CMakeFiles/cmTC_30e11.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_eb17e.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTC_eb17e.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_eb17e
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eb17e.dir/link.txt --verbose=1
-/usr/bin/c++       CMakeFiles/cmTC_eb17e.dir/feature_tests.cxx.o  -o cmTC_eb17e 
+Building CXX object CMakeFiles/cmTC_30e11.dir/feature_tests.cxx.o
+/usr/bin/g++    -std=c++14 -o CMakeFiles/cmTC_30e11.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_30e11
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_30e11.dir/link.txt --verbose=1
+/usr/bin/g++       CMakeFiles/cmTC_30e11.dir/feature_tests.cxx.o  -o cmTC_30e11 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -468,14 +468,14 @@ gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_b2e78/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_b2e78.dir/build.make CMakeFiles/cmTC_b2e78.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_7cb85/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_7cb85.dir/build.make CMakeFiles/cmTC_7cb85.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_b2e78.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_b2e78.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_b2e78
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2e78.dir/link.txt --verbose=1
-/usr/bin/c++       CMakeFiles/cmTC_b2e78.dir/feature_tests.cxx.o  -o cmTC_b2e78 
+Building CXX object CMakeFiles/cmTC_7cb85.dir/feature_tests.cxx.o
+/usr/bin/g++    -std=c++11 -o CMakeFiles/cmTC_7cb85.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_7cb85
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7cb85.dir/link.txt --verbose=1
+/usr/bin/g++       CMakeFiles/cmTC_7cb85.dir/feature_tests.cxx.o  -o cmTC_7cb85 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
@@ -541,14 +541,14 @@ gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/gmake" "cmTC_37206/fast"
-/usr/bin/gmake -f CMakeFiles/cmTC_37206.dir/build.make CMakeFiles/cmTC_37206.dir/build
+Run Build Command:"/usr/bin/gmake" "cmTC_7af56/fast"
+/usr/bin/gmake -f CMakeFiles/cmTC_7af56.dir/build.make CMakeFiles/cmTC_7af56.dir/build
 gmake[1]: Entering directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_37206.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_37206.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_37206
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37206.dir/link.txt --verbose=1
-/usr/bin/c++       CMakeFiles/cmTC_37206.dir/feature_tests.cxx.o  -o cmTC_37206 
+Building CXX object CMakeFiles/cmTC_7af56.dir/feature_tests.cxx.o
+/usr/bin/g++    -std=c++98 -o CMakeFiles/cmTC_7af56.dir/feature_tests.cxx.o -c /home/CCQ/Project/edge-log-storage/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_7af56
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7af56.dir/link.txt --verbose=1
+/usr/bin/g++       CMakeFiles/cmTC_7af56.dir/feature_tests.cxx.o  -o cmTC_7af56 
 gmake[1]: Leaving directory '/home/CCQ/Project/edge-log-storage/build/CMakeFiles/CMakeTmp'
 
 
