@@ -123,32 +123,86 @@ EdgeLog-Storage/fast:
 	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/build
 .PHONY : EdgeLog-Storage/fast
 
-src/server/main.o: src/server/main.cpp.o
+src/config/Config.o: src/config/Config.cpp.o
 
-.PHONY : src/server/main.o
+.PHONY : src/config/Config.o
 
 # target to build an object file
-src/server/main.cpp.o:
-	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o
-.PHONY : src/server/main.cpp.o
+src/config/Config.cpp.o:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o
+.PHONY : src/config/Config.cpp.o
 
-src/server/main.i: src/server/main.cpp.i
+src/config/Config.i: src/config/Config.cpp.i
 
-.PHONY : src/server/main.i
+.PHONY : src/config/Config.i
 
 # target to preprocess a source file
-src/server/main.cpp.i:
-	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.i
-.PHONY : src/server/main.cpp.i
+src/config/Config.cpp.i:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.i
+.PHONY : src/config/Config.cpp.i
 
-src/server/main.s: src/server/main.cpp.s
+src/config/Config.s: src/config/Config.cpp.s
 
-.PHONY : src/server/main.s
+.PHONY : src/config/Config.s
 
 # target to generate assembly for a file
-src/server/main.cpp.s:
-	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.s
-.PHONY : src/server/main.cpp.s
+src/config/Config.cpp.s:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.s
+.PHONY : src/config/Config.cpp.s
+
+src/log/AsyncLogger.o: src/log/AsyncLogger.cpp.o
+
+.PHONY : src/log/AsyncLogger.o
+
+# target to build an object file
+src/log/AsyncLogger.cpp.o:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o
+.PHONY : src/log/AsyncLogger.cpp.o
+
+src/log/AsyncLogger.i: src/log/AsyncLogger.cpp.i
+
+.PHONY : src/log/AsyncLogger.i
+
+# target to preprocess a source file
+src/log/AsyncLogger.cpp.i:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.i
+.PHONY : src/log/AsyncLogger.cpp.i
+
+src/log/AsyncLogger.s: src/log/AsyncLogger.cpp.s
+
+.PHONY : src/log/AsyncLogger.s
+
+# target to generate assembly for a file
+src/log/AsyncLogger.cpp.s:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.s
+.PHONY : src/log/AsyncLogger.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -159,9 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... EdgeLog-Storage"
-	@echo "... src/server/main.o"
-	@echo "... src/server/main.i"
-	@echo "... src/server/main.s"
+	@echo "... src/config/Config.o"
+	@echo "... src/config/Config.i"
+	@echo "... src/config/Config.s"
+	@echo "... src/log/AsyncLogger.o"
+	@echo "... src/log/AsyncLogger.i"
+	@echo "... src/log/AsyncLogger.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

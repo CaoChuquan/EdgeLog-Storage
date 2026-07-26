@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o"
+  "CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o"
+  "CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o"
+  "CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o"
   "../bin/EdgeLog-Storage.pdb"
   "../bin/EdgeLog-Storage"
 )

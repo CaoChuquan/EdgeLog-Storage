@@ -8,6 +8,10 @@
 #include <thread>
 #include <atomic>
 
+constexpr size_t MAXFILESIZE = 10 * 1024 * 1024;
+constexpr size_t MAXQUEUECAPCITY = 1000;
+constexpr int FLUSHBATCHSIZE = 100;
+
 // 日志消息结构
 struct LogMessage {
     LogLevel level;
@@ -33,6 +37,7 @@ public:
     ~AsyncLogger();
 
     void init(const std::string& log_dir, LogLevel level = LogLevel::INFO);
+    void shutdown();
 
     // 写日志
     void log(LogLevel level, const std::string& message);
@@ -50,6 +55,8 @@ private:
     std::string getCurrentTime();
     // 关闭当日志文件，创建新的文件
     void rotateFile();
+    // 生成新文件名
+    std::string getNewFileName();
 
     // 队列相关成员
     std::queue<LogMessage> message_queue_;
@@ -66,6 +73,7 @@ private:
     std::string current_filename_; // 当前日志文件名
     LogLevel level_{ LogLevel::INFO }; // 日志级别过滤阈值
     size_t file_size_{ 0 }; // 当前文件大小
+    int flush_count_{ 0 };
 };
 
 

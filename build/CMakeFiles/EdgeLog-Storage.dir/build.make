@@ -57,41 +57,93 @@ include CMakeFiles/EdgeLog-Storage.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/EdgeLog-Storage.dir/flags.make
 
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o: CMakeFiles/EdgeLog-Storage.dir/flags.make
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o: ../src/server/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/CCQ/Project/edge-log-storage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o -c /home/CCQ/Project/edge-log-storage/src/server/main.cpp
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o: CMakeFiles/EdgeLog-Storage.dir/flags.make
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/CCQ/Project/edge-log-storage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o -c /home/CCQ/Project/edge-log-storage/src/main.cpp
 
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/CCQ/Project/edge-log-storage/src/server/main.cpp > CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.i
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/CCQ/Project/edge-log-storage/src/main.cpp > CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.i
 
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/CCQ/Project/edge-log-storage/src/server/main.cpp -o CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.s
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/CCQ/Project/edge-log-storage/src/main.cpp -o CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.s
 
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.requires:
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.requires:
 
-.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.requires
+.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.requires
 
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.provides: CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.provides.build
-.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.provides
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.provides: CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.provides.build
+.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.provides
 
-CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.provides.build: CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o
+CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.provides.build: CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o
+
+
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o: CMakeFiles/EdgeLog-Storage.dir/flags.make
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o: ../src/log/AsyncLogger.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/CCQ/Project/edge-log-storage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o -c /home/CCQ/Project/edge-log-storage/src/log/AsyncLogger.cpp
+
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/CCQ/Project/edge-log-storage/src/log/AsyncLogger.cpp > CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.i
+
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/CCQ/Project/edge-log-storage/src/log/AsyncLogger.cpp -o CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.s
+
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.requires:
+
+.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.requires
+
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.provides: CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.requires
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.provides.build
+.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.provides
+
+CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.provides.build: CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o
+
+
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o: CMakeFiles/EdgeLog-Storage.dir/flags.make
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o: ../src/config/Config.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/CCQ/Project/edge-log-storage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o -c /home/CCQ/Project/edge-log-storage/src/config/Config.cpp
+
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/CCQ/Project/edge-log-storage/src/config/Config.cpp > CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.i
+
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/CCQ/Project/edge-log-storage/src/config/Config.cpp -o CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.s
+
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.requires:
+
+.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.requires
+
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.provides: CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.requires
+	$(MAKE) -f CMakeFiles/EdgeLog-Storage.dir/build.make CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.provides.build
+.PHONY : CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.provides
+
+CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.provides.build: CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o
 
 
 # Object files for target EdgeLog-Storage
 EdgeLog__Storage_OBJECTS = \
-"CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o"
+"CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o" \
+"CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o" \
+"CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o"
 
 # External object files for target EdgeLog-Storage
 EdgeLog__Storage_EXTERNAL_OBJECTS =
 
-../bin/EdgeLog-Storage: CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o
+../bin/EdgeLog-Storage: CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o
+../bin/EdgeLog-Storage: CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o
+../bin/EdgeLog-Storage: CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o
 ../bin/EdgeLog-Storage: CMakeFiles/EdgeLog-Storage.dir/build.make
 ../bin/EdgeLog-Storage: CMakeFiles/EdgeLog-Storage.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/CCQ/Project/edge-log-storage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/EdgeLog-Storage"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/CCQ/Project/edge-log-storage/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ../bin/EdgeLog-Storage"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/EdgeLog-Storage.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -99,7 +151,9 @@ CMakeFiles/EdgeLog-Storage.dir/build: ../bin/EdgeLog-Storage
 
 .PHONY : CMakeFiles/EdgeLog-Storage.dir/build
 
-CMakeFiles/EdgeLog-Storage.dir/requires: CMakeFiles/EdgeLog-Storage.dir/src/server/main.cpp.o.requires
+CMakeFiles/EdgeLog-Storage.dir/requires: CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o.requires
+CMakeFiles/EdgeLog-Storage.dir/requires: CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o.requires
+CMakeFiles/EdgeLog-Storage.dir/requires: CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o.requires
 
 .PHONY : CMakeFiles/EdgeLog-Storage.dir/requires
 
