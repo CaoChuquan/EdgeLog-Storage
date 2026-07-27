@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iomanip>
 #include <filesystem>
+#include <iostream>
 
 using std::string;
 
@@ -51,6 +52,7 @@ void AsyncLogger::log(LogLevel level, const string& message) {
     {
         std::lock_guard<std::mutex> lock(queue_mutex_);
         if (message_queue_.size() >= MAXQUEUECAPCITY) {
+            std::cerr << "Log queue is full, message dropped: " << message << "\n";
             return;
         }
         message_queue_.push(std::move(msg));
@@ -60,47 +62,40 @@ void AsyncLogger::log(LogLevel level, const string& message) {
 }
 
 void AsyncLogger::workerThread() {
-    while (running_) {
-        // 加锁并请求等待条件
+    while (running_ || !message_queue_.empty()) {
         std::unique_lock<std::mutex> lock(queue_mutex_);
         cv_.wait(lock, [this]() {
             // 防止虚假唤醒
             return !(this->message_queue_.empty()) || !running_;
         });
 
-        // 处理队列中的消息
+        // 将消息队列中的所有消息全部取出
+        std::vector<LogMessage> batch;
         while (!message_queue_.empty()) {
-            // 取出消息
-            LogMessage msg = std::move(message_queue_.front());
+            batch.push_back(std::move(message_queue_.front()));
             message_queue_.pop();
+        }
+        lock.unlock();  // 释放资源
 
-            // 临时释放锁，允许向队列中加入消息
-            lock.unlock();
+        for (const auto& msg : batch) {
+            string log = "[" + msg.timestamp + "] [" + leveltoString(msg.level) + "] " + msg.message + "\n";
 
-            // 构建日志
-            string log = "[" + msg.timestamp + "] [" + LeveltoString(msg.level) + "] " + msg.message + "\n";
-
-            // 确保文件已经打开
+            std::lock_guard<std::mutex> file_lock(queue_mutex_);
             if (!log_file_.is_open()) rotateFile();
 
-            // 写入文件并增加记数
+            // 将日志写入文件，当写入一定数量后再刷新
             log_file_ << log;
             ++flush_count_;
-            // 日志写入达到一定条数后在刷新
             if (flush_count_ >= FLUSHBATCHSIZE) {
                 log_file_.flush();
                 flush_count_ = 0;
             }
 
-            // 更新文件大小
             file_size_ += log.size();
-            // 检查是否需要创建新文件
+            // 达到文件写入上限后打开新文件
             if (file_size_ >= MAXFILESIZE) {
                 rotateFile();
             }
-
-            // 重新获取锁，继续处理下一条消息
-            lock.lock();
         }
     }
 }

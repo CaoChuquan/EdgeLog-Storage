@@ -1,3 +1,4 @@
-# Build and Release Folders
 build/
 logs/
+bin/*
+!bin/.gitkeep

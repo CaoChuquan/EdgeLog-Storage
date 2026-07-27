@@ -22,16 +22,15 @@ public:
     // 加载配置文件
     void load(const std::string& config_path = "./config.json");
     // 获取配置项的 string 类型
-    std::string getString(const std::string& key, const std::string& value = "");
+    std::string getString(const std::string& key, const std::string& value = "./logs");
     // 获取配置项的 int 类型
-    int getInt(const std::string& key, int vaule = 0);
+    int getInt(const std::string& key, int value = 0);
     // 获取配置项的 unsigned int 类型
     unsigned int getUInt(const std::string& key, unsigned int value = 0);
     // 获取配置项的 unsigned int 类型
     bool getBool(const std::string& key, bool value = false);
 private:
     Config() {}
-    void parseJson(const std::string& js);
 
     nlohmann::json json_;
     bool loaded_{ false };

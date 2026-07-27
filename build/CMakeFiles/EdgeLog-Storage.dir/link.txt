@@ -1,1 +1,0 @@
-/usr/bin/g++  -g   CMakeFiles/EdgeLog-Storage.dir/src/main.cpp.o CMakeFiles/EdgeLog-Storage.dir/src/log/AsyncLogger.cpp.o CMakeFiles/EdgeLog-Storage.dir/src/config/Config.cpp.o  -o ../bin/EdgeLog-Storage -lpthread -lstdc++fs -lnlohmann_json::nlohmann_json 

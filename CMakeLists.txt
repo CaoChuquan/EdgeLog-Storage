@@ -1,22 +1,30 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(EdgeLog-Storage)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-file(GLOB log_sources src/log/*.cpp)
-file(GLOB config_sources src/config/*.cpp)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+find_package(Threads REQUIRED)
 
-add_executable(EdgeLog-Storage 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-    ${log_sources}
-    ${config_sources}
+file(GLOB log_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/log/*.cpp)
+file(GLOB config_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/config/*.cpp)
+
+add_executable(edgelog-storage
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${log_files}
+    ${config_files}
 )
 
-target_include_directories(EdgeLog-Storage PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-target_include_directories(EdgeLog-Storage PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/third_party)
-target_link_libraries(EdgeLog-Storage PRIVATE pthread stdc++fs)
-target_link_libraries(EdgeLog-Storage PRIVATE nlohmann_json::nlohmann_json)
+target_include_directories(edgelog-storage PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/log
+    ${CMAKE_SOURCE_DIR}/src/config
+    ${CMAKE_SOURCE_DIR}/third_party
+)
+
+target_link_libraries(edgelog-storage PRIVATE
+    Threads::Threads
+)
