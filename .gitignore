@@ -3,6 +3,7 @@
 build/
 
 logs/
+logs_test/
 
 bin/*
 !bin/.gitkeep

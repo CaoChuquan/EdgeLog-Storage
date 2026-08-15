@@ -43,8 +43,26 @@ int main() {
 
     // 启动网络服务器
     int port = Config::instance().getInt("port", 8080);
+    if (!NetworkServer::instance().init(port)) {
+        LOG_FATAL("Failed to start network server, exiting");
+        AsyncLogger::instance().shutdown();
+        return 1;
+    }
+    NetworkServer::instance().setLogDataCallback([] (string device_id, string log_data) {
+        LOG_INFO("[Device:" + device_id + "] " + log_data);
+    });
 
-    // 关闭日志
+    LOG_INFO("Running... (press Ctrl-C to stop)");
+
+    // 主线程挂起，等待停机信号
+    {
+        unique_lock<mutex> lock(g_mutex);
+        g_cv.wait(lock, [] { return !g_running.load(); });
+    }
+
+    // 优雅停机：先停服务器（不再接收新数据），再关日志（冲刷队列）
+    LOG_INFO("Shutting down...");
+    NetworkServer::instance().shutdown();
     AsyncLogger::instance().shutdown();
 
     return 0;
