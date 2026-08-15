@@ -11,17 +11,23 @@ find_package(Threads REQUIRED)
 
 file(GLOB log_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/log/*.cpp)
 file(GLOB config_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/config/*.cpp)
+file(GLOB net_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/net/*.cpp)
+file(GLOB threadpool_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/threadpool/*.cpp)
 
 add_executable(edgelog-storage
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${log_files}
     ${config_files}
+    ${net_files}
+    ${threadpool_files}
 )
 
 target_include_directories(edgelog-storage PRIVATE
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/log
     ${CMAKE_SOURCE_DIR}/src/config
+    ${CMAKE_SOURCE_DIR}/src/net
+    ${CMAKE_SOURCE_DIR}/src/threadpool
     ${CMAKE_SOURCE_DIR}/third_party
 )
 

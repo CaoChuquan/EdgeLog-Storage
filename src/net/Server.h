@@ -58,6 +58,7 @@ private:
 
     int listenfd_{ -1 };
     int epollfd_{ -1 };
+    int wakeupfd_{ -1 }; // 用于关闭网络服务器时唤醒阻塞的 epoll_wait()
     int port_{ 8080 };
     size_t max_connections_{ 1000 };
 

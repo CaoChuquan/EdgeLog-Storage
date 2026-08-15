@@ -1,6 +1,21 @@
 #include <iostream>
+#include <csignal>
 #include "AsyncLogger.h"
 #include "Config.h"
+#include "Server.h"
+
+// 全局停机标志，由信号处理函数置位，主线程等待它
+namespace {
+    std::atomic<bool> g_running{ true };
+    std::condition_variable g_cv;
+    std::mutex g_mutex;
+
+    void handleSignal(int sig) {
+        (void)sig;
+        g_running = false;
+        g_cv.notify_one();
+    }
+}
 
 int main() {
     using namespace std;
@@ -21,7 +36,13 @@ int main() {
     LOG_INFO("Log directory: " + log_dir);
     LOG_INFO("Log level: " + log_level_str);
     LOG_DEBUG("Service starting...");
-    LOG_INFO("Running...");
+
+    // 注册信号处理，使用 ctrl + c / kill 停止
+    signal(SIGINT, handleSignal);
+    signal(SIGTERM, handleSignal);
+
+    // 启动网络服务器
+    int port = Config::instance().getInt("port", 8080);
 
     // 关闭日志
     AsyncLogger::instance().shutdown();

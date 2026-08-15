@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/epoll.h>
+#include <sys/eventfd.h>
 #include <cstring>
 
 using std::string;
@@ -68,6 +69,19 @@ bool NetworkServer::init(int port, size_t max_connections) {
         return false;
     }
 
+    // 创建 eventfd 并加入 epoll，shutdown() 时向它写入数据唤醒阻塞的 epoll_wait()
+    wakeupfd_ = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
+    if (wakeupfd_ < 0) {
+        LOG_ERROR("Failed to create eventfd");
+        ::close(listenfd_);
+        listenfd_ = -1;
+        ::close(epollfd_);
+        epollfd_ = -1;
+        return false;
+    }
+    if (!addEpollEvent(wakeupfd_, EPOLLIN)) return false;
+    
+
     // 创建线程池，用于业务逻辑
     thread_pool_ = std::make_unique<ThreadPool>();
     // 启动事件循环线程
@@ -81,28 +95,45 @@ bool NetworkServer::init(int port, size_t max_connections) {
 }
 
 void NetworkServer::shutdown() {
+    // 防止重复关闭
+    if (running_ == false) return;
     running_ = false;
     
-    // 关闭监听 socket，触发 epoll_wait 返回
-    if (listenfd_ >= 0) {
-        close(listenfd_);
-        listenfd_ = -1;
+    // 向 eventfd 写入，立即唤醒阻塞在 epoll_wait 上的事件循环线程。
+    if (wakeupfd_ >= 0) {
+        uint64_t one = 1;
+        ssize_t n = ::write(wakeupfd_, &one, sizeof(one));
+        (void)n;
+    }
+
+    // 先等待事件循环线程退出，之后才没有线程会再访问 clients_，再
+    // 向线程池 submit 任务，避免与 clients_.clear() 产生数据竞争
+    if (event_thread_.joinable()) {
+        event_thread_.join();
     }
     
+    // 事件循环退出，销毁线程池
+    thread_pool_.reset();
+    
+    // 事件循环已退出，关闭各 fd
+    if (listenfd_ >= 0) {
+        ::close(listenfd_);
+        listenfd_ = -1;
+    }
+    if (wakeupfd_ >= 0) {
+        ::close(wakeupfd_);
+        wakeupfd_ = -1;
+    }
+
     // 关闭 epoll 实例
     if (epollfd_ >= 0) {
-        close(epollfd_);
+        ::close(epollfd_);
         epollfd_ = -1;
     }
     
     // 清空客户端连接，ClientConnection 析构时会自动关闭 socket
     clients_.clear();
-    
-    // 等待事件循环线程退出
-    if (event_thread_.joinable()) {
-        event_thread_.join();
-    }
-    
+
     LOG_INFO("Network server stopped");
 }
 
@@ -122,7 +153,11 @@ void NetworkServer::eventLoop() {
         int fd = -1;
         for (int i = 0; i < nfds; ++i) {
             fd = events[i].data.fd;
-            if (fd == listenfd_) {
+            if (fd == wakeupfd_) {
+                // shutdown() 已调用，直接退出
+                return;
+            }
+            else if (fd == listenfd_) {
                 // 监听 socket 可读，表示有新连接到来
                 handleAccept();
             }
@@ -214,7 +249,7 @@ void NetworkServer::handleRead(int client_fd) {
             char* line = reinterpret_cast<char*>(memchr(conn->buffer, '\n', conn->buffer_pos));
 
             // 没有找到换行符
-            if (line = nullptr) {
+            if (line == nullptr) {
                 // 缓冲区可能满了，检查
                 if (conn->buffer_pos >= sizeof(conn->buffer) - 1) {
                     // 缓冲区已满，强制处理当前数据（防止缓冲区溢出）

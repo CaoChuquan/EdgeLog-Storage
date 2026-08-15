@@ -2,6 +2,7 @@
     "log_dir": "./logs",
     "log_level": "DEBUG",
     "max_file_size": 10485760,
+    "port": 8080,
     "service_name": "EdgeLog Storage Service",
     "service_version": "1.0.0"
 }

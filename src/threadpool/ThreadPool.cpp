@@ -11,7 +11,7 @@ ThreadPool::ThreadPool(size_t thread_count) {
     
     // 创建工作线程
     running_ = true;
-    for (int i = 0; i < thread_count; ++i) {
+    for (size_t i = 0; i < thread_count; ++i) {
         workers_.emplace_back(std::thread(&ThreadPool::workerThread, this));
     }
 }
