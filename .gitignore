@@ -2,4 +2,3 @@ build/
 logs/
 bin/*
 !bin/.gitkeep
-src/net
