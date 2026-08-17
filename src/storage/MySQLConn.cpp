@@ -1,4 +1,5 @@
 #include "MySQLConn.h"
+#include <cstring>
 
 using std::string;
 using std::vector;
@@ -7,8 +8,9 @@ using std::move;
 MySQLConn::MySQLConn(MySQLConn&& other) noexcept
     : conn_(other.conn_)
     , last_error_(move(other.last_error_))
+    , last_errno_(other.last_errno_)
 {
-    other.conn_ = conn_;
+    other.conn_ = nullptr;   // 掏空源对象，避免析构时 double free
 }
 
 MySQLConn& MySQLConn::operator=(MySQLConn&& other) noexcept {
@@ -16,6 +18,7 @@ MySQLConn& MySQLConn::operator=(MySQLConn&& other) noexcept {
         close();
         conn_ = other.conn_;
         last_error_ = move(other.last_error_);
+        last_errno_ = other.last_errno_;
         other.conn_ = nullptr;
     }
     return *this;
@@ -54,13 +57,12 @@ bool MySQLConn::connect(const char* host, const char* user, const char* password
 }
 
 bool MySQLConn::execute(const char* sql) {
-    if (conn_) {
-        last_error_ = "not connect";
+    if (!conn_) {
+        last_error_ = "not connected";
         return false;
     }
 
-    // 执行 sql 语句
-    if (mysql_real_query(conn_, sql, sizeof(sql)) != 0) {
+    if (mysql_real_query(conn_, sql, std::strlen(sql)) != 0) {
         last_error_ = mysql_error(conn_);
         last_errno_ = mysql_errno(conn_);
         return false;
@@ -77,8 +79,9 @@ bool MySQLConn::query(const char* sql, vector<vector<string>>& out) {
     }
 
     // 执行 sql 语句
-    if (mysql_real_query(conn_, sql, sizeof(sql)) != 0) {
+    if (mysql_real_query(conn_, sql, std::strlen(sql)) != 0) {
         last_error_ = mysql_error(conn_);
+        last_errno_ = mysql_errno(conn_);
         return false;
     }
 
