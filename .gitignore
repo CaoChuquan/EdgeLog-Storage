@@ -5,5 +5,7 @@ build/
 logs/
 logs_test/
 
+deep_storage/
+
 bin/*
 !bin/.gitkeep

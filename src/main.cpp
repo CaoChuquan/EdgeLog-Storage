@@ -1,8 +1,13 @@
 #include <iostream>
 #include <csignal>
+#include <atomic>
+#include <chrono>
+#include <condition_variable>
+#include <mutex>
 #include "AsyncLogger.h"
 #include "Config.h"
 #include "Server.h"
+#include "StorageManager.h"
 
 // 全局停机标志，由信号处理函数置位，主线程等待它
 namespace {
@@ -37,32 +42,53 @@ int main() {
     LOG_INFO("Log level: " + log_level_str);
     LOG_DEBUG("Service starting...");
 
-    // 注册信号处理，使用 ctrl + c / kill 停止
-    signal(SIGINT, handleSignal);
-    signal(SIGTERM, handleSignal);
+    // 注册信号处理，支持 Ctrl-C / kill 优雅停机
+    std::signal(SIGINT, handleSignal);
+    std::signal(SIGTERM, handleSignal);
 
-    // 启动网络服务器
+    // 初始化存储层：连接 MySQL、准备落盘目录。失败则退出。
+    if (!StorageManager::instance().init()) {
+        LOG_FATAL("Failed to init storage layer, exiting");
+        AsyncLogger::instance().shutdown();
+        return 1;
+    }
+
+    // 启动网络服务器：收到设备日志后，落盘到存储层并转写进运行日志
     int port = Config::instance().getInt("port", 8080);
+    NetworkServer::instance().setLogDataCallback(
+        [](std::string device_id, std::string log_data) {
+            if (!StorageManager::instance().store(device_id, log_data)) {
+                LOG_ERROR("Failed to store log from device " + device_id);
+            }
+            LOG_INFO("[Device:" + device_id + "] " + log_data);
+        });
+
     if (!NetworkServer::instance().init(port)) {
         LOG_FATAL("Failed to start network server, exiting");
         AsyncLogger::instance().shutdown();
         return 1;
     }
-    NetworkServer::instance().setLogDataCallback([] (string device_id, string log_data) {
-        LOG_INFO("[Device:" + device_id + "] " + log_data);
-    });
 
     LOG_INFO("Running... (press Ctrl-C to stop)");
 
-    // 主线程挂起，等待停机信号
+    // 主线程挂起，等待停机信号。
+    // 若配置了 run_seconds（>0），则最多运行该秒数后自动停机（便于自动化测试）。
+    int run_seconds = Config::instance().getInt("run_seconds", 0);
     {
-        unique_lock<mutex> lock(g_mutex);
-        g_cv.wait(lock, [] { return !g_running.load(); });
+        std::unique_lock<std::mutex> lock(g_mutex);
+        if (run_seconds > 0) {
+            g_cv.wait_for(lock, std::chrono::seconds(run_seconds),
+                          [] { return !g_running.load(); });
+        } else {
+            g_cv.wait(lock, [] { return !g_running.load(); });
+        }
     }
 
-    // 优雅停机：先停服务器（不再接收新数据），再关日志（冲刷队列）
+    // 优雅停机：先停服务器（不再接收新数据、线程池排空），
+    // 确保没有回调再访问存储层后，再关存储层，最后关日志（冲刷队列）
     LOG_INFO("Shutting down...");
     NetworkServer::instance().shutdown();
+    StorageManager::instance().shutdown();
     AsyncLogger::instance().shutdown();
 
     return 0;

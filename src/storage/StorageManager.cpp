@@ -234,7 +234,7 @@ bool StorageManager::flushBatch(std::vector<FileMeta>& batch) {
         return false;   // 池已关闭（shutdown 期间），本批放弃
     }
 
-    // 降低死锁概率：批内按 url 排序，使所有 flush 线程都以「一致的顺序」访问
+    // 降低死锁概率：批内按 url 排序，使所有 flush 线程都以一致的顺序访问
     // files 表的行。死锁的根因是不同事务以相反顺序请求同一组行的锁，统一顺序
     // 能从源头减少循环等待。（这只是降低概率，仍需下面的重试兜底。）
     std::sort(batch.begin(), batch.end(),
