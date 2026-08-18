@@ -87,7 +87,7 @@ void StorageManager::shutdown() {
     ready_ = false;
 
     // 唤醒所有 flush 线程：它们醒来后会先把 pending_ 里的剩余批次冲刷干净，
-    // 再因 running_==false 且队列空而退出。notify_all 确保每个线程都被叫醒。
+    // 再因 running_==false 且队列空而退出。notify_all 确保每个线程都被叫醒
     queue_cv_.notify_all();
     for (auto& t : flush_threads_) {
         if (t.joinable()) {
@@ -100,14 +100,44 @@ void StorageManager::shutdown() {
     pool_.shutdown();
 }
 
-bool StorageManager::store(const std::string& device_id, const std::string& log_data) {
+bool StorageManager::store(const std::string& device_id, uint64_t seq,
+                           const std::string& log_data) {
     if (!ready_) {
         return false;
     }
 
-    // ============ 阶段一：落盘（同步、实时）============
-    // 日志内容必须不丢、不乱序，所以在调用线程里同步写完文件。
-    // 这里的 file_mutex_ 只保护文件追加写这段临界区，不涉及任何数据库操作。
+    // 弱网下设备可能因没收到 ACK 而重传同一条日志（相同 seq）。这里在落盘前先拦截
+    // 注意：seq==0 是老格式/不可靠帧，不参与去重，直接放行。
+    // 由于回调在线程池并发执行，同一设备的 seq 会乱序到达，去重用"水位 + 乱序集合"
+    // 方案（见头文件 DedupState 注释），不能简单比较最大值。
+    uint64_t reserved_prev_contiguous = 0;   // 预占前的水位，回滚用
+    bool reserved_inserted_ahead = false;    // 是否是插进 ahead 集合的，回滚用
+    if (seq != 0) {
+        if (isDuplicateAndReserve(device_id, seq,
+                                  reserved_prev_contiguous, reserved_inserted_ahead)) {
+            // 重复帧：跳过落盘，但返回 true 让网络层照常回 ACK，
+            // 好让设备把这条从本地 WAL 里清掉，停止无谓重传。
+            return true;
+        }
+        // 非重复：上面已"预占"该 seq。若接下来落盘失败，需回滚预占，让 seq 能被重传
+    }
+
+    // 落盘失败回滚守卫：中途 return 时把去重预占撤销；落盘成功后 dismiss() 取消回滚
+    struct ReserveGuard {
+        StorageManager* self;
+        std::string dev;
+        uint64_t seq;
+        uint64_t prev_contiguous;
+        bool inserted_ahead;
+        bool active;
+        ~ReserveGuard() {
+            if (active) self->rollbackReserve(dev, seq, prev_contiguous, inserted_ahead);
+        }
+        void dismiss() { active = false; }
+    } guard{ this, device_id, seq, reserved_prev_contiguous,
+             reserved_inserted_ahead, seq != 0 };
+
+    // 日志内容必须不丢、不乱序，所以在调用线程里同步写完文件
     std::string file_path;
     std::int64_t fsize = 0, mtime = 0, atime = 0;
     std::string file_hash;
@@ -161,13 +191,13 @@ bool StorageManager::store(const std::string& device_id, const std::string& log_
     // 把这条日志对应的文件元数据打包成纯数据结构，放进共享队列后立即返回。
     // 真正的写库由 flush 线程组异步完成，调用线程不阻塞在数据库上。
     FileMeta meta;
-    meta.device_id = device_id;
+    meta.device_id    = device_id;
     meta.storage_path = file_path;
-    meta.url = download_prefix_ + device_id + "/" + device_id + ".log";
-    meta.fsize = fsize;
-    meta.mtime = mtime;
-    meta.atime = atime;
-    meta.file_hash = std::move(file_hash);
+    meta.url          = download_prefix_ + device_id + "/" + device_id + ".log";
+    meta.fsize        = fsize;
+    meta.mtime        = mtime;
+    meta.atime        = atime;
+    meta.file_hash    = std::move(file_hash);
     {
         std::lock_guard<std::mutex> lock(queue_mutex_);
         pending_.push_back(std::move(meta));
@@ -176,12 +206,15 @@ bool StorageManager::store(const std::string& device_id, const std::string& log_
     // 并行认领。用 notify_one（而非 notify_all）避免惊群：只需叫醒一个即可，
     // 若队列里还有更多，被唤醒的线程取走一批后其余线程会继续被后续 notify 唤醒。
     queue_cv_.notify_one();
+
+    // 落盘成功、元数据已入队：本次 seq 已可靠持久化，取消游标回退。
+    guard.dismiss();
     return true;
 }
 
 void StorageManager::flushLoop() {
     // 本函数会被多个 flush 线程同时执行。它们竞争同一个 pending_ 队列，
-    // 各自取走一批、各自借连接写库，从而并行使用连接池里的多条连接。
+    // 各自取走一批、各自借连接写库，从而并行使用连接池里的多条连接
     while (true) {
         std::vector<FileMeta> batch;
         {
@@ -191,21 +224,21 @@ void StorageManager::flushLoop() {
             //   队列已攒够一批（pending_.size() >= batch_size_）：达到批量阈值；
             //   已停机（!running_）：需要收尾冲刷并退出。
             // 另外还带一个 batch_interval_ms_ 超时：即使没攒够一批，超时后也醒来，
-            // 把已有的零散数据取走写库，避免低负载时数据长时间滞留在内存。
+            // 把已有的零散数据取走写库，避免低负载时数据长时间滞留在内存
             // 多消费者场景下每个线程各自持有这把锁的时间很短（只做"取一批"），
-            // 取完立刻解锁去写库，因此彼此几乎不互相阻塞。
+            // 取完立刻解锁去写库，因此彼此几乎不互相阻塞
             queue_cv_.wait_for(lock,
                 std::chrono::milliseconds(batch_interval_ms_),
                 [this] { return pending_.size() >= batch_size_ || !running_; });
 
             if (pending_.empty()) {
-                // 队列空：已停机则退出线程；否则是超时空转，继续下一轮等待。
+                // 队列空：已停机则退出线程；否则是超时空转，继续下一轮等待
                 if (!running_) break;
                 continue;
             }
 
-            // 从队头取走最多 batch_size_ 条，组成本线程要落库的一批。
-            // 取的过程仍持锁，保证不同 flush 线程不会取到重复数据。
+            // 从队头取走最多 batch_size_ 条，组成本线程要落库的一批
+            // 取的过程仍持锁，保证不同 flush 线程不会取到重复数据
             size_t take = std::min(pending_.size(), batch_size_);
             batch.reserve(take);
             for (size_t i = 0; i < take; ++i) {
@@ -214,7 +247,7 @@ void StorageManager::flushLoop() {
             }
         }   // 解锁：接下来的写库不再占用队列锁，其他 flush 线程可继续取批
 
-        // 写库在锁外进行：借到的连接由本线程独占，与其他线程的连接互不干扰。
+        // 写库在锁外进行：借到的连接由本线程独占，与其他线程的连接互不干扰
         if (!flushBatch(batch)) {
             LOG_ERROR("flushBatch failed, " + std::to_string(batch.size()) +
                       " metadata records dropped");
@@ -228,7 +261,7 @@ bool StorageManager::flushBatch(std::vector<FileMeta>& batch) {
     }
 
     // 从连接池借一条连接，用 RAII 守卫保证无论正常返回还是中途 return，
-    // 离开作用域时都会自动归还连接。本线程在此期间独占这条连接。
+    // 离开作用域时都会自动归还连接。本线程在此期间独占这条连接
     PooledConn c(pool_);
     if (!c) {
         return false;   // 池已关闭（shutdown 期间），本批放弃
@@ -236,7 +269,7 @@ bool StorageManager::flushBatch(std::vector<FileMeta>& batch) {
 
     // 降低死锁概率：批内按 url 排序，使所有 flush 线程都以一致的顺序访问
     // files 表的行。死锁的根因是不同事务以相反顺序请求同一组行的锁，统一顺序
-    // 能从源头减少循环等待。（这只是降低概率，仍需下面的重试兜底。）
+    // 能从源头减少循环等待。（这只是降低概率，仍需下面的重试兜底）
     std::sort(batch.begin(), batch.end(),
               [](const FileMeta& a, const FileMeta& b) { return a.url < b.url; });
 
@@ -306,11 +339,11 @@ bool StorageManager::flushBatch(std::vector<FileMeta>& batch) {
             // COMMIT 也可能因死锁失败，落入下面的重试判断
         }
 
-        // 走到这里说明本次事务失败：先记录错误码，回滚，再决定是否重试。
+        // 走到这里说明本次事务失败：先记录错误码，回滚，再决定是否重试
         unsigned int err = c->lastErrno();
         c->execute("ROLLBACK");
 
-        // 1213=死锁，1205=锁等待超时：可重试的暂时性错误。其他错误直接放弃。
+        // 1213=死锁，1205=锁等待超时：可重试的暂时性错误。其他错误直接放弃
         bool retryable = (err == 1213 || err == 1205);
         if (!retryable || attempt == max_deadlock_retry_) {
             LOG_ERROR("flushBatch giving up after " + std::to_string(attempt + 1) +
@@ -318,7 +351,7 @@ bool StorageManager::flushBatch(std::vector<FileMeta>& batch) {
                       ", " + std::to_string(batch.size()) + " records dropped");
             return false;
         }
-        // 指数退避 + 线程相关抖动，错开各线程的重试时刻，避免再次撞死锁。
+        // 指数退避 + 线程相关抖动，错开各线程的重试时刻，避免再次撞死锁
         int backoff_ms = (1 << attempt) * 2;   // 2,4,8,16,32 ms
         std::this_thread::sleep_for(std::chrono::milliseconds(backoff_ms));
     }
@@ -337,4 +370,56 @@ std::string StorageManager::hashContent(const std::string& content) const {
     char buf[17];
     std::snprintf(buf, sizeof(buf), "%016llx", static_cast<unsigned long long>(h));
     return std::string(buf);
+}
+
+bool StorageManager::isDuplicateAndReserve(const std::string& device_id, uint64_t seq,
+                                           uint64_t& prev_contiguous, bool& inserted_ahead) {
+    std::lock_guard<std::mutex> lock(dedup_mutex_);
+    DedupState& st = dedup_[device_id];      // 不存在则默认构造（contiguous=0）
+
+    prev_contiguous = st.contiguous;
+    inserted_ahead = false;
+
+    // 已在水位以内，或已在乱序集合中 => 是重传的重复帧
+    if (seq <= st.contiguous || st.ahead.count(seq)) {
+        return true;
+    }
+
+    // 新日志：先"预占"这个 seq，避免同一 seq 的并发重传都被判成新日志
+    if (seq == st.contiguous + 1) {
+        // 正好紧邻水位：推进水位，并尽量把 ahead 里紧接着的 seq 合并进来，
+        // 把之前乱序提前到达、如今变得连续的 seq 一次性并入，收敛 ahead 规模
+        st.contiguous = seq;
+        while (st.ahead.erase(st.contiguous + 1) > 0) {
+            ++st.contiguous;
+        }
+        // 本次是通过推进水位来占位（inserted_ahead=false），回滚时按水位处理
+    } else {
+        // 出现在水位之上、但不连续（前面有缺口）：先放进 ahead 记为已处理
+        st.ahead.insert(seq);
+        inserted_ahead = true;
+    }
+    return false;
+}
+
+void StorageManager::rollbackReserve(const std::string& device_id, uint64_t seq,
+                                     uint64_t prev_contiguous, bool inserted_ahead) {
+    std::lock_guard<std::mutex> lock(dedup_mutex_);
+    auto it = dedup_.find(device_id);
+    if (it == dedup_.end()) return;
+    DedupState& st = it->second;
+
+    if (inserted_ahead) {
+        // 当初插进了 ahead：直接移除即可（水位未变）
+        st.ahead.erase(seq);
+    } else {
+        // 当初是推进水位吸收的：把因本次合并而越过 seq 的水位全部退回 ahead，
+        // 再把水位还原到进入本次 store 前的值，保证 seq 及其后连续段都能被重传
+        for (uint64_t s = prev_contiguous + 1; s <= st.contiguous; ++s) {
+            if (s != seq) {
+                st.ahead.insert(s);   // seq 本身要能重传，不放回 ahead
+            }
+        }
+        st.contiguous = prev_contiguous;
+    }
 }
