@@ -25,6 +25,7 @@ file(GLOB config_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/config/*.cpp)
 file(GLOB net_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/net/*.cpp)
 file(GLOB threadpool_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/threadpool/*.cpp)
 file(GLOB storage_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/storage/*.cpp)
+file(GLOB device_files CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/device/*.cpp)
 
 # 核心模块打包成静态库，供主程序与测试共同链接，避免源文件列表重复
 add_library(edgelog_core STATIC
@@ -33,6 +34,7 @@ add_library(edgelog_core STATIC
     ${net_files}
     ${threadpool_files}
     ${storage_files}
+    ${device_files}
 )
 
 target_include_directories(edgelog_core PUBLIC
@@ -42,6 +44,7 @@ target_include_directories(edgelog_core PUBLIC
     ${CMAKE_SOURCE_DIR}/src/net
     ${CMAKE_SOURCE_DIR}/src/threadpool
     ${CMAKE_SOURCE_DIR}/src/storage
+    ${CMAKE_SOURCE_DIR}/src/device
     ${CMAKE_SOURCE_DIR}/third_party
     ${MYSQL_INCLUDE_DIR}
 )
@@ -71,3 +74,8 @@ target_link_libraries(test_storage_bench PRIVATE edgelog_core)
 target_compile_definitions(test_storage_bench PRIVATE
     EDGELOG_CONFIG_PATH="${CMAKE_SOURCE_DIR}/config.json")
 add_test(NAME storage_bench COMMAND test_storage_bench)
+
+# 弱网可靠性端到端测试（设备端 WAL + ACK + 断线重传 + 崩溃恢复），不依赖 MySQL
+add_executable(test_reliable ${CMAKE_SOURCE_DIR}/tests/test_reliable.cpp)
+target_link_libraries(test_reliable PRIVATE edgelog_core)
+add_test(NAME reliable_e2e COMMAND test_reliable)

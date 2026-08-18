@@ -46,7 +46,7 @@ int main() {
     std::signal(SIGINT, handleSignal);
     std::signal(SIGTERM, handleSignal);
 
-    // 初始化存储层：连接 MySQL、准备落盘目录。失败则退出。
+    // 初始化存储层：连接 MySQL、准备落盘目录。失败则退出
     if (!StorageManager::instance().init()) {
         LOG_FATAL("Failed to init storage layer, exiting");
         AsyncLogger::instance().shutdown();
@@ -54,13 +54,18 @@ int main() {
     }
 
     // 启动网络服务器：收到设备日志后，落盘到存储层并转写进运行日志
+    // 回调返回 true 表示已可靠持久化（含重复帧被去重的情况），网络层据此回 ACK
     int port = Config::instance().getInt("port", 8080);
     NetworkServer::instance().setLogDataCallback(
-        [](std::string device_id, std::string log_data) {
-            if (!StorageManager::instance().store(device_id, log_data)) {
-                LOG_ERROR("Failed to store log from device " + device_id);
+        [](std::string device_id, uint64_t seq, std::string log_data) -> bool {
+            bool ok = StorageManager::instance().store(device_id, seq, log_data);
+            if (!ok) {
+                LOG_ERROR("Failed to store log from device " + device_id +
+                          " (seq=" + std::to_string(seq) + ")");
+                return false;
             }
             LOG_INFO("[Device:" + device_id + "] " + log_data);
+            return true;
         });
 
     if (!NetworkServer::instance().init(port)) {
@@ -72,14 +77,15 @@ int main() {
     LOG_INFO("Running... (press Ctrl-C to stop)");
 
     // 主线程挂起，等待停机信号。
-    // 若配置了 run_seconds（>0），则最多运行该秒数后自动停机（便于自动化测试）。
+    // 若配置了 run_seconds（>0），则最多运行该秒数后自动停机
     int run_seconds = Config::instance().getInt("run_seconds", 0);
     {
         std::unique_lock<std::mutex> lock(g_mutex);
         if (run_seconds > 0) {
             g_cv.wait_for(lock, std::chrono::seconds(run_seconds),
                           [] { return !g_running.load(); });
-        } else {
+        } 
+        else {
             g_cv.wait(lock, [] { return !g_running.load(); });
         }
     }

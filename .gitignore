@@ -6,7 +6,7 @@ logs/
 logs_test/
 logs_bench/
 deep_storage/
-
+Testing/
 
 bin/*
 !bin/.gitkeep

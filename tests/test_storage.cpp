@@ -19,7 +19,12 @@ namespace fs = std::filesystem;
 
 int main() {
     AsyncLogger::instance().init("./logs_test", LogLevel::DEBUG);
+    // 用 CMake 注入的绝对路径加载配置，避免 ctest 在 build/ 下运行时找不到 ./config.json
+#ifdef EDGELOG_CONFIG_PATH
+    Config::instance().load(EDGELOG_CONFIG_PATH);
+#else
     Config::instance().load("./config.json");
+#endif
 
     if (!StorageManager::instance().init()) {
         std::cerr << "FAILED: storage init failed (MySQL up? config correct?)\n";
@@ -31,9 +36,9 @@ int main() {
     long ts = std::chrono::duration_cast<std::chrono::milliseconds>(now).count();
     std::string device_id = "test_dev_" + std::to_string(ts);
 
-    // 存两条日志
-    bool ok1 = StorageManager::instance().store(device_id, "log_test_1");
-    bool ok2 = StorageManager::instance().store(device_id, "log_test_2");
+    // 存两条日志（seq 依次递增，走可靠帧路径）
+    bool ok1 = StorageManager::instance().store(device_id, 1, "log_test_1");
+    bool ok2 = StorageManager::instance().store(device_id, 2, "log_test_2");
     if (!ok1 || !ok2) {
         std::cerr << "FAILED: store() returned false\n";
         StorageManager::instance().shutdown();

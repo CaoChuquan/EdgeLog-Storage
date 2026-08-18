@@ -20,7 +20,12 @@ namespace fs = std::filesystem;
 
 int main() {
     AsyncLogger::instance().init("./logs_bench", LogLevel::WARN);
+    // 用 CMake 注入的绝对路径加载配置，避免 ctest 在 build/ 下运行时找不到 ./config.json
+#ifdef EDGELOG_CONFIG_PATH
+    Config::instance().load(EDGELOG_CONFIG_PATH);
+#else
     Config::instance().load("./config.json");
+#endif
 
     if (!StorageManager::instance().init()) {
         std::cerr << "FAILED: storage init failed\n";
@@ -46,7 +51,9 @@ int main() {
             for (int d = 0; d < kDevPerThread; ++d) {
                 std::string dev = prefix + std::to_string(t) + "_" + std::to_string(d);
                 for (int i = 0; i < kLogsPerDevice; ++i) {
-                    if (StorageManager::instance().store(dev, "val=" + std::to_string(i))) {
+                    // seq 从 1 开始递增（0 表示老格式/不去重），走可靠帧去重路径
+                    if (StorageManager::instance().store(dev, static_cast<uint64_t>(i + 1),
+                                                         "val=" + std::to_string(i))) {
                         ok.fetch_add(1);
                     }
                 }

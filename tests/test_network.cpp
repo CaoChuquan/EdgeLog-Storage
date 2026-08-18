@@ -1,9 +1,7 @@
 // 网络层端到端回归测试
-
-// 在同一进程内：启动 NetworkServer -> 客户端连接 -> 发送多行日志
-// ->验证回调收到全部行并写入 AsyncLogger -> 有序 shutdown。
-
-// 用于回归验证「设备 -> 网络 -> 线程池 -> 日志」整条链路与停机时序的正确性。
+//   在同一进程内：启动 NetworkServer -> 客户端连接 -> 发送多行日志 ->
+//   验证回调收到全部行并写入 AsyncLogger -> 有序 shutdown。
+// 用于回归验证设备 -> 网络 -> 线程池 -> 日志整条链路与停机时序的正确性。
 #include "AsyncLogger.h"
 #include "Server.h"
 #include <atomic>
@@ -21,9 +19,10 @@ int main() {
 
     std::atomic<int> received{ 0 };
     NetworkServer::instance().setLogDataCallback(
-        [&received](std::string device_id, std::string log_data) {
-            LOG_INFO("[Device:" + device_id + "] " + log_data);
+        [&received](std::string device_id, uint64_t seq, std::string log_data) -> bool {
+            LOG_INFO("[Device:" + device_id + " seq:" + std::to_string(seq) + "] " + log_data);
             received.fetch_add(1);
+            return true;
         });
 
     const int port = 9099;
