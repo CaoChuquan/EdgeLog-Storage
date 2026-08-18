@@ -4,8 +4,9 @@ build/
 
 logs/
 logs_test/
-
+logs_bench/
 deep_storage/
+
 
 bin/*
 !bin/.gitkeep

@@ -252,42 +252,21 @@ void NetworkServer::handleRead(int client_fd) {
             if (line == nullptr) {
                 // 缓冲区可能满了，检查
                 if (conn->buffer_pos >= sizeof(conn->buffer) - 1) {
-                    // 缓冲区已满，强制处理当前数据（防止缓冲区溢出）
-                    string log_data(conn->buffer, conn->buffer_pos);
-                    string device_id = conn->addr;
-                    
-                    // 将日志回调投递到线程池异步执行
-                    // 事件循环只负责 I/O，业务逻辑在线程池中处理
-                    if (cb_ && thread_pool_) {
-                        thread_pool_->submit([this, device_id, log_data]() {
-                           cb_(device_id, log_data);
-                        });
-                    } 
-                    else {
-                        LOG_INFO("[Device:" + device_id + "] " + log_data);
-                    }
+                    // 缓冲区已满仍无换行：把当前整段当作一行强制处理，防止溢出。
+                    // 这类"超长行"无法解析出 seq，按老格式（seq=0，不回 ACK）兜底。
+                    handleLine(conn, conn->buffer, conn->buffer_pos);
                     conn->buffer_pos = 0;
                 }
                 // 数据不完整，自己进行下一次读取
                 break;
             }
 
-            // 找到了换行符，提取一行数据
-            *line = '\0'; // 把换行符替换为字符串结束符
-            string log_data(conn->buffer);
-            string device_id = conn->addr;
-            // 加入线程池
-            if (cb_ && thread_pool_) {
-                thread_pool_->submit([this, device_id, log_data] {
-                    this->cb_(device_id, log_data);
-                });
-            }
-            else {
-                LOG_INFO("[Device:" + device_id + "] " + log_data);
-            }
+            // 找到了换行符，提取一行数据（不含换行符）
+            size_t line_len = static_cast<size_t>(line - conn->buffer);
+            handleLine(conn, conn->buffer, line_len);
 
             // 移动剩余数据到缓冲区开头
-            size_t remaining = conn->buffer_pos - (line - conn->buffer) - 1;
+            size_t remaining = conn->buffer_pos - line_len - 1;
             memmove(conn->buffer, line + 1, remaining);
             conn->buffer_pos = remaining;
         }
@@ -331,4 +310,53 @@ bool NetworkServer::addEpollEvent(int sockfd, uint32_t events) {
         return false;
     }
     return true;
+}
+
+void NetworkServer::handleLine(ClientConnection* conn, char* line_begin, size_t line_len) {
+    // 解析一行完整日志。协议帧：
+    //   "LOG <seq> <payload>"   —— 可靠模式：处理成功后需回 "ACK <seq>\n"
+    //   其它任意文本            —— 兼容老格式：当作 seq=0 的普通日志，不回 ACK
+    string device_id = conn->addr;
+    int client_fd = conn->sockfd;
+
+    uint64_t seq = 0;
+    bool reliable = false;               // 是否需要回 ACK
+    string payload(line_begin, line_len);
+
+    // 识别 "LOG " 前缀
+    if (line_len > 4 && std::memcmp(line_begin, "LOG ", 4) == 0) {
+        const char* p = line_begin + 4;
+        const char* end = line_begin + line_len;
+        // 解析 seq（十进制无符号整数）
+        uint64_t v = 0;
+        const char* q = p;
+        while (q < end && *q >= '0' && *q <= '9') {
+            v = v * 10 + static_cast<uint64_t>(*q - '0');
+            ++q;
+        }
+        // 合法帧要求：seq 后紧跟一个空格，空格后是 payload（payload 可以为空）
+        if (q > p && q < end && *q == ' ') {
+            seq = v;
+            reliable = true;
+            payload.assign(q + 1, static_cast<size_t>(end - (q + 1)));
+        }
+        // 若格式不符（如 "LOG abc"），reliable 保持 false，整行按老格式落库
+    }
+
+    if (!cb_ || !thread_pool_) {
+        // 没有接线业务回调时，退化为直接打印（保留原有调试行为）
+        LOG_INFO("[Device:" + device_id + "] " + payload);
+        return;
+    }
+
+    // 把落库投递到线程池异步执行；事件循环只负责 I/O。
+    // 落库成功且是可靠帧时，直接在该工作线程里回写 ACK。
+    thread_pool_->submit([this, device_id, seq, payload, reliable, client_fd]() {
+        bool ok = cb_(device_id, seq, payload);
+        if (ok && reliable) {
+            string ack = "ACK " + std::to_string(seq) + "\n";
+            // MSG_NOSIGNAL：对端已关闭时返回 EPIPE 而非触发 SIGPIPE 杀进程
+            ::send(client_fd, ack.data(), ack.size(), MSG_NOSIGNAL);
+        }
+    });
 }

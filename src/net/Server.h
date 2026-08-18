@@ -25,7 +25,10 @@ struct ClientConnection {
 
 class NetworkServer {
 public:
-    using LogDataCallback = std::function<void(std::string, std::string)>;
+    // 日志处理回调：上层拿到 (设备号, seq, 日志内容) 后落库
+    // 返回 true 表示该条已可靠持久化，网络层随后会给设备回 ACK <seq>
+    // 返回 false 表示落库失败，不回 ACK，设备端超时后会重传
+    using LogDataCallback = std::function<bool(std::string, uint64_t, std::string)>;
 
     NetworkServer() {}
     ~NetworkServer() { shutdown(); }
@@ -55,6 +58,9 @@ private:
     void handleRead(int client_fd);
     // 处理连接断开事件
     void handleDisconnect(int client_fd);
+
+    // 解析并处理一行完整日志：拆出 seq 与 payload，投递给上层，成功后回 ACK。
+    void handleLine(ClientConnection* conn, char* line_begin, size_t line_len);
 
     int listenfd_{ -1 };
     int epollfd_{ -1 };
